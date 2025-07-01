@@ -25,10 +25,13 @@ public class CharacterCreatorManager : MonoBehaviour
     [Header("Panels")]
     public GameObject characterCreatorPanel;
     public GameObject previousPanel; // Where to go when Back is pressed
+
+    [Header("GameObjectForHidingButton")]
+    public GameObject finishButtonHide;
     
     // Track selected background
     private string selectedBackground = "";
-    
+
     void Start()
     {
         // Background button listeners
@@ -36,12 +39,33 @@ public class CharacterCreatorManager : MonoBehaviour
         problemChildButton.onClick.AddListener(() => SelectBackground("Problem Child"));
         mediatorButton.onClick.AddListener(() => SelectBackground("Mediator"));
         easyTriggerButton.onClick.AddListener(() => SelectBackground("Easy Trigger"));
-        
+
         // Control button listeners
         createCharacterButton.onClick.AddListener(CreateAndSaveCharacter);
         backButton.onClick.AddListener(GoBack);
+
+        // Hide finish button
+        finishButtonHide.SetActive(false);
     }
-    
+
+    void Update()
+    {
+        finishButtonHide.SetActive(IsFilledOut());
+    }
+
+    bool IsFilledOut()
+    {
+        // Check if ANY required field is empty (return false if so)
+        if (string.IsNullOrEmpty(nameInput.text)) return false;
+        if (string.IsNullOrEmpty(surnameInput.text)) return false;
+        if (string.IsNullOrEmpty(powerNameInput.text)) return false;
+        if (string.IsNullOrEmpty(powerDescriptionInput.text)) return false;
+        if (string.IsNullOrEmpty(selectedBackground)) return false;
+
+        // If we get here, all fields are filled
+    return true;
+    }
+
     void SelectBackground(string backgroundName)
     {
         selectedBackground = backgroundName;
@@ -86,19 +110,6 @@ public class CharacterCreatorManager : MonoBehaviour
     
     void CreateAndSaveCharacter()
     {
-        // Validate inputs
-        if (string.IsNullOrEmpty(nameInput.text))
-        {
-            Debug.LogError("Name is required!");
-            return;
-        }
-        
-        if (string.IsNullOrEmpty(selectedBackground))
-        {
-            Debug.LogError("Please select a background class!");
-            return;
-        }
-        
         // Create character
         CharacterData newCharacter = new CharacterData();
         

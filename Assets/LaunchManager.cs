@@ -16,21 +16,18 @@ public class LaunchManager : MonoBehaviour
     public Button createPlayerButton;
     public Button createPlayerCreationFinishedButton;
     public Button createPlayerLoadedButton;
+    public Button returnFromHostButton;
 
     void Start()
     {
         HideAllPanels(true);
-        // launchPanel.SetActive(true);
-        // hostPanel.SetActive(false);
-        // playerQueryPanel.SetActive(false);
-        // playerCreatePanel.SetActive(false);
-        // playerConnectionPanel.SetActive(false);
 
         hostButton.onClick.AddListener(StartAsHost);
         playerButton.onClick.AddListener(StartPlayerQuery);
         createPlayerButton.onClick.AddListener(StartPlayerCreator);
         createPlayerCreationFinishedButton.onClick.AddListener(StartPlayerConnection);
         createPlayerLoadedButton.onClick.AddListener(StartPlayerConnection);
+        returnFromHostButton.onClick.AddListener(StartMenu);
     }
 
     void HideAllPanels(bool start)
@@ -42,39 +39,43 @@ public class LaunchManager : MonoBehaviour
             playerQueryPanel.SetActive(false);
             playerCreatePanel.SetActive(false);
             playerConnectionPanel.SetActive(false);
-        } else {
+        }
+        else
+        {
             launchPanel.SetActive(false);
             hostPanel.SetActive(false);
             playerQueryPanel.SetActive(false);
             playerCreatePanel.SetActive(false);
             playerConnectionPanel.SetActive(false);
-            
+
         }
     }
     void StartAsHost()
     {
         HideAllPanels(false);
-        // launchPanel.SetActive(false);
         hostPanel.SetActive(true);
     }
     void StartPlayerQuery()
     {
         HideAllPanels(false);
-        // launchPanel.SetActive(false);
         playerQueryPanel.SetActive(true);
     }
 
     void StartPlayerCreator()
     {
         HideAllPanels(false);
-        // playerQueryPanel.SetActive(false);
         playerCreatePanel.SetActive(true);
     }
 
     void StartPlayerConnection()
     {
         HideAllPanels(false);
-        // playerQueryPanel.SetActive(false);
         playerConnectionPanel.SetActive(true);
+    }
+
+    void StartMenu()
+    {
+        HideAllPanels(false);
+        launchPanel.SetActive(true);
     }
 }
