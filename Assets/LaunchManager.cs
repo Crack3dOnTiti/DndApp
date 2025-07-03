@@ -9,6 +9,7 @@ public class LaunchManager : MonoBehaviour
     public GameObject playerQueryPanel;
     public GameObject playerCreatePanel;
     public GameObject playerConnectionPanel;
+    public GameObject testPanel;
 
     [Header("Buttons")]
     public Button hostButton;
@@ -17,6 +18,10 @@ public class LaunchManager : MonoBehaviour
     public Button createPlayerCreationFinishedButton;
     public Button createPlayerLoadedButton;
     public Button returnFromHostButton;
+    public Button returnPlayerConnectButton;
+    public Button hostToConnect;
+    public Button ConnectToHost;
+    public Button gototest;
 
     void Start()
     {
@@ -28,6 +33,10 @@ public class LaunchManager : MonoBehaviour
         createPlayerCreationFinishedButton.onClick.AddListener(StartPlayerConnection);
         createPlayerLoadedButton.onClick.AddListener(StartPlayerConnection);
         returnFromHostButton.onClick.AddListener(StartMenu);
+        returnPlayerConnectButton.onClick.AddListener(StartPlayerQuery);
+        hostToConnect.onClick.AddListener(StartPlayerConnection);
+        ConnectToHost.onClick.AddListener(StartAsHost);
+        gototest.onClick.AddListener(StartTest);
     }
 
     void HideAllPanels(bool start)
@@ -39,6 +48,7 @@ public class LaunchManager : MonoBehaviour
             playerQueryPanel.SetActive(false);
             playerCreatePanel.SetActive(false);
             playerConnectionPanel.SetActive(false);
+            testPanel.SetActive(false);
         }
         else
         {
@@ -47,6 +57,7 @@ public class LaunchManager : MonoBehaviour
             playerQueryPanel.SetActive(false);
             playerCreatePanel.SetActive(false);
             playerConnectionPanel.SetActive(false);
+            testPanel.SetActive(false);
 
         }
     }
@@ -77,5 +88,11 @@ public class LaunchManager : MonoBehaviour
     {
         HideAllPanels(false);
         launchPanel.SetActive(true);
+    }
+
+    void StartTest()
+    {
+        HideAllPanels(false);
+        testPanel.SetActive(true);
     }
 }
